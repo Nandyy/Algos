@@ -28,6 +28,20 @@ void insertion_sort(int *input, int size)
     }
 }
 
+void selection_sort(int *input, int size)
+{
+	int i, j;
+	for(i = 0; i < size - 1; i++){
+		int key = i;
+		for(j = i + 1; j < size; j++){
+			if(*(input + key) > *(input + j))
+				key = j;
+		}
+        if(i != key)
+            swap(input + i, input + key);
+	}
+}
+
 int print_menu(void)
 {
     int option;
@@ -66,7 +80,7 @@ int main()
     pfn sort_type[5];
     sort_type[0] = bubble_sort;
     sort_type[1] = insertion_sort;
-    sort_type[2] = bubble_sort;
+    sort_type[2] = selection_sort;
     sort_type[3] = bubble_sort;
     sort_type[4] = bubble_sort;
 
