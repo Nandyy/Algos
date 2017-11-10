@@ -1,4 +1,15 @@
 #include <stdio.h>
+
+char menu[][100] = {
+    "1. Bubble Sort\n",
+    "2. Insertion Sort\n",
+    "3. Selection Sort\n",
+    "4. Merge Sort\n",
+    "5. Quick Sort\n",
+    "6. Exit\n",
+    "Enter option: "
+};
+
 typedef void (*pfn)(int *, int);
 
 void swap(int * a, int * b)
@@ -45,21 +56,12 @@ void selection_sort(int *input, int size)
 int print_menu(void)
 {
     int option;
-    char menu[][256] = {
-        "1. Bubble Sort\n",
-        "2. Insertion Sort\n",
-        "3. Selection Sort\n",
-        "4. Merge Sort\n",
-        "5. Quick Sort\n",
-        "6. Exit\n",
-        "Enter option: "
-    };
     int size = sizeof(menu)/sizeof(menu[0]);
     for(int i = 0; i < size; i++)
         printf("%s", menu[i]);
     scanf("%d", &option);
 
-    if(option >= 1 && option <= 5)  
+    if(option >= 1 && option <= 6)  
         return option;
     
     return -1;
@@ -84,19 +86,25 @@ int main()
     sort_type[3] = bubble_sort;
     sort_type[4] = bubble_sort;
 
-    do{
+    while(1)
+    {
         option = print_menu();
-        if(option < 0) break;
+        if(option < 0){
+            printf("Unknown option!\n");
+            continue;
+        }
+        if(option == 6) break;
         printf("Enter total number of inputs: ");
         scanf("%d", &num);
         int input[num];
         for(int i = 0; i < num; i++)
             scanf("%d", &input[i]);
         
+        printf("%s", menu[option - 1]);
         sort_type[option - 1](input, num);
 
         print_arr(input, num);
-    }while(option > 0);
+    }
     
     return 0;
 }
